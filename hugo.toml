@@ -1,0 +1,4 @@
+baseURL = "https://vikisses.github.io/site1/"
+languageCode = "ru-ru"
+title = "Portfolio"
+theme = "paige"
