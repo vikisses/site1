@@ -23,19 +23,26 @@ jobs:
       - name: Setup Hugo (extended)
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: 'latest'
+          hugo-version: "latest"
           extended: true
 
       - name: Setup Node (for Dart Sass)
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
-      - name: Install Dart Sass
-        run: npm i -g sass
+      - name: Install Dart Sass (local)
+        run: |
+          npm init -y
+          npm i --save-dev sass
+
+      - name: Tell Hugo where Sass is
+        run: echo "HUGO_DART_SASS=$(pwd)/node_modules/.bin/sass" >> $GITHUB_ENV
 
       - name: Verify Sass
-        run: sass --version && which sass
+        run: |
+          echo "$HUGO_DART_SASS"
+          $HUGO_DART_SASS --version
 
       - name: Build
         run: hugo --minify
